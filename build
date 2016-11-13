@@ -1,0 +1,5 @@
+#!/bin/bash
+
+g++ -c -std=c++11 src/main.cpp src/piece.cpp src/board.cpp src/emptyPiece.cpp src/pawn.cpp
+g++ main.o piece.o board.o emptyPiece.o pawn.o -o chess.out -lsfml-graphics -lsfml-window -lsfml-system
+rm *.o
