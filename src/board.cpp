@@ -8,9 +8,9 @@ Board::Board(int s){
 			sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(size,size));
 			rectangle->setPosition(sf::Vector2f(i*size,j*size));
 			if((i + j)%2 == 0){
-				rectangle->setFillColor(sf::Color::Black);
-			} else {
 				rectangle->setFillColor(sf::Color::White);
+			} else {
+				rectangle->setFillColor(sf::Color::Black);
 			}
 			
 			this->baseGrid[i][j] = rectangle;
@@ -18,10 +18,23 @@ Board::Board(int s){
 	}
 }
 
+Board::~Board(){
+	for(int i = 0; i < 8; i++){
+		for(int j = 0; j < 8; j++){
+			delete this->baseGrid[i][j];
+			delete this->baseGrid[i][j];
+		}
+	}
+}
+
+Piece Board::getPiece(sf::Vector2i p){
+	return *grid[p.x][p.y];
+}
+
 void Board::initPieces(){
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
-			this->grid[i][j] = new EmptyPiece();
+			this->grid[i][j] = new EmptyPiece(*this);
 		}
 	}
 }

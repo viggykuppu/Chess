@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "piece.h"
 
-
 class Pawn : public Piece {
 	public:
 		virtual bool isEmpty();

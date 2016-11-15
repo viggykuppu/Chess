@@ -4,11 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include "piece.h"
 #include "emptyPiece.h"
+#include "pawn.h"
 
 class Board : public sf::Drawable {
 	public:
 		Board(int s);
+		~Board();
 		void addPiece(Piece piece);
+		Piece getPiece(sf::Vector2i p);
 
 	private:
 		int s;

@@ -3,12 +3,11 @@
 
 int main()
 {
-    int x = 800;
-    int y = 800;
-    sf::RenderWindow window(sf::VideoMode(x, y), "SFML works!");
+    int s = 1600;
+    sf::RenderWindow window(sf::VideoMode(s, s), "Chess");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-    Board board(800);
+    Board board(s);
 
     while (window.isOpen())
     {
