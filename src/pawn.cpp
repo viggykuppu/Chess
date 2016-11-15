@@ -1,6 +1,5 @@
 #include "pawn.h"
 
-
 bool Pawn::isEmpty(){
 	return false;
 }

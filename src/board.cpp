@@ -1,4 +1,5 @@
 #include "board.h"
+#include "emptyPiece.h"
 
 Board::Board(int s){
 	this->s = s;
@@ -16,13 +17,14 @@ Board::Board(int s){
 			this->baseGrid[i][j] = rectangle;
 		}
 	}
+	this->initPieces();
 }
 
 Board::~Board(){
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
 			delete this->baseGrid[i][j];
-			delete this->baseGrid[i][j];
+			delete this->grid[i][j];
 		}
 	}
 }

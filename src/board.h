@@ -2,9 +2,8 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
-#include "piece.h"
-#include "emptyPiece.h"
-#include "pawn.h"
+
+class Piece;
 
 class Board : public sf::Drawable {
 	public:

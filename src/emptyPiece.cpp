@@ -1,5 +1,6 @@
 #include "emptyPiece.h"
 
+
 EmptyPiece::EmptyPiece(Board& board):Piece(board){
 }
 

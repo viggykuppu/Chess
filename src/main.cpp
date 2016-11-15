@@ -5,8 +5,6 @@ int main()
 {
     int s = 1600;
     sf::RenderWindow window(sf::VideoMode(s, s), "Chess");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
     Board board(s);
 
     while (window.isOpen())

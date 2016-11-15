@@ -2,7 +2,8 @@
 #define CELL_H
 
 #include "piece.h"
-#include "board.h"
+
+class Board;
 
 class EmptyPiece : public Piece {
 	public:
