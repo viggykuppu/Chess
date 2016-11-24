@@ -5,6 +5,9 @@
 Piece::Piece(Board& board):board(board){
 }
 
+Piece::Piece(Board& board, PieceColor color):board(board),color(color){
+}
+
 bool Piece::isEmpty(){
 	return false;
 }
@@ -31,4 +34,25 @@ bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
 		currentY += dy;
 	}
 	return true;
+}
+
+int Piece::getParity(){
+	if(this->color == PieceColor::Black){
+		return -1;
+	} else {
+		return 1;
+	}
+}
+
+sf::Vector2i Piece::getPosition(){
+	return sf::Vector2i(this->x,this->y);
+}
+
+void Piece::setPosition(sf::Vector2i p){
+	this->x = p.x;
+	this->y = p.y;
+}
+
+bool Piece::canMove(sf::Vector2i p){
+	return false;
 }

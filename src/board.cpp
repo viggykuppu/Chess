@@ -11,7 +11,7 @@ Board::Board(int s){
 			if((i + j)%2 == 0){
 				rectangle->setFillColor(sf::Color::White);
 			} else {
-				rectangle->setFillColor(sf::Color::Black);
+				rectangle->setFillColor(sf::Color(180,180,180));
 			}
 			
 			this->baseGrid[i][j] = rectangle;
@@ -47,4 +47,7 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 			target.draw(*baseGrid[i][j]);
 		}
 	}
+}
+
+void Board::update(){
 }

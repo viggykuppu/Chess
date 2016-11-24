@@ -6,8 +6,10 @@
 
 class Pawn : public Piece {
 	public:
+		
 		virtual bool isEmpty();
 		virtual bool move(sf::Vector2i p);
+		virtual bool canMove(sf::Vector2i p);
 
 	private:
 
