@@ -26,22 +26,24 @@ void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
-	int dy = (p.y-this->y)/std::abs((p.y-this->y));
-	int dx = (p.x-this->x)/std::abs((p.x-this->x));
+	int dy = p.y-this->y == 0 ? 0 : (p.y-this->y)/std::abs((p.y-this->y));
+	int dx = p.x-this->x == 0 ? 0 : (p.x-this->x)/std::abs((p.x-this->x));
 	int n = std::abs(p.y-this->y);
 	int currentX = x + dx;
 	int currentY = y + dy;
 	for(int i = 0; i < n-1; i++){
-		if(!this->board.getPiece(sf::Vector2i(currentX,currentY)).isEmpty()){
+		if(!this->board.getPiece(sf::Vector2i(currentX,currentY))->isEmpty()){
 			return true;
 		}
 		currentX += dx;
 		currentY += dy;
 	}
-	if(this->board.getPiece(sf::Vector2i(currentX,currentY)).isEmpty()){
+
+	if(this->board.getPiece(sf::Vector2i(currentX,currentY))->isEmpty()){
+		std::cout << currentX << ", " << currentY << std::endl;
 		return false;
 	}
-	if(canCapture && this->color != board.getPiece(sf::Vector2i(currentX,currentY)).color){
+	if(canCapture && this->color != board.getPiece(sf::Vector2i(currentX,currentY))->color){
 		return false;
 	}
 	return true;

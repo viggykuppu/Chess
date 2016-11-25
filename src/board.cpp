@@ -32,8 +32,8 @@ Board::~Board(){
 	}
 }
 
-Piece Board::getPiece(sf::Vector2i p){
-	return *grid[p.y][p.x];
+Piece* Board::getPiece(sf::Vector2i p){
+	return grid[p.y][p.x];
 }
 
 void Board::initPieces(){
@@ -70,11 +70,11 @@ void Board::update(){
 }
 
 void Board::placePiece(Piece& piece,sf::Vector2i p){
-	delete grid[p.x][p.y];
+	delete grid[p.y][p.x];
 	sf::Vector2i q = piece.getPosition();
 	piece.setPosition(p);
-	grid[p.x][p.y] = &piece;
-	grid[piece.getPosition().x][piece.getPosition().y] = new EmptyPiece(*this,q);
+	grid[p.y][p.x] = &piece;
+	grid[q.y][q.x] = new EmptyPiece(*this,q);
 }
 
 void Board::click(int x, int y){

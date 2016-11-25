@@ -10,7 +10,7 @@ class Board : public sf::Drawable {
 		Board(int s);
 		~Board();
 		void placePiece(Piece& piece, sf::Vector2i p);
-		Piece getPiece(sf::Vector2i p);
+		Piece* getPiece(sf::Vector2i p);
 		void update();
 		void click(int x, int y);
 		void unclick(int x, int y);

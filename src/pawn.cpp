@@ -2,7 +2,7 @@
 #include <iostream>
 
 Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"){
-	
+	hasMoved = false;
 }
 
 bool Pawn::isEmpty(){
@@ -30,12 +30,10 @@ bool Pawn::canMove(sf::Vector2i p){
 	dx = std::abs(dx);
 	int maxDy = hasMoved ? 1 : 2;
 	if(dy > maxDy || dx > 1){
-		std::cout << "lost in ds" << std::endl;
 		return false;
 	}
-	std::cout << dx << ", " << dy << std::endl;
 	if(dx == 0){
-		return isBlocked(p,false);
+		return !isBlocked(p,false);
 	} else {
 		return false;
 	}
