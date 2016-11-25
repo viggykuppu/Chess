@@ -56,7 +56,7 @@ sf::Vector2i Piece::getPosition(){
 void Piece::setPosition(sf::Vector2i p){
 	this->x = p.x;
 	this->y = p.y;
-	this->pieceSprite.setPosition(p.x*200,p.y*200);
+	this->pieceSprite.setPosition(p.x*this->board.getL(),p.y*this->board.getL());
 }
 
 void Piece::move(sf::Vector2i p){
@@ -79,5 +79,6 @@ void Piece::loadPieceTexture(){
 	}
 	this->pieceTexture.setSmooth(true);
 	this->pieceSprite.setTexture(pieceTexture);
-	this->pieceSprite.setScale(.1,.1);
+	float scaleFactor = float(this->board.getL())/2000;
+	this->pieceSprite.setScale(scaleFactor,scaleFactor);
 }

@@ -14,10 +14,12 @@ class Board : public sf::Drawable {
 		void update();
 		void click(int x, int y);
 		void unclick(int x, int y);
+		int getS();
+		int getL();
 
 	private:
 		int s;
-		int t;
+		int l;
 		Piece* grid[8][8];
 		sf::RectangleShape* baseGrid[8][8];
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

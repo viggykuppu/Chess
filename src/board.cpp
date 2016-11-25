@@ -6,6 +6,7 @@
 
 Board::Board(int s){
 	this->s = s;
+	this->l = s/8;
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
 			int size = s/8;
@@ -30,6 +31,14 @@ Board::~Board(){
 			delete this->grid[i][j];
 		}
 	}
+}
+
+int Board::getS(){
+	return s;
+}
+
+int Board::getL(){
+	return l;
 }
 
 Piece* Board::getPiece(sf::Vector2i p){
@@ -83,7 +92,7 @@ void Board::click(int x, int y){
 }
 
 void Board::unclick(int x, int y){
-	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/200*200,y/200*200));
+	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/l*l,y/l*l));
 	if(p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y){
 		if(heldPiece->canMove(p)){
 			std::cout << "moved" << std::endl;
@@ -95,9 +104,9 @@ void Board::unclick(int x, int y){
 }
 
 sf::Vector2i Board::convertPointToGrid(sf::Vector2i p){
-	return sf::Vector2i(p.x/200,p.y/200);
+	return sf::Vector2i(p.x/l,p.y/l);
 }
 
 sf::Vector2i Board::convertGridToPoint(sf::Vector2i p){
-	return sf::Vector2i(p.x*200,p.y*200);
+	return sf::Vector2i(p.x*l,p.y*l);
 }
