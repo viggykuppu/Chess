@@ -17,6 +17,7 @@ class Piece : public sf::Drawable {
 		virtual bool canMove(sf::Vector2i p);
 		void setPosition(sf::Vector2i p);
 		sf::Vector2i getPosition();
+		PieceColor getColor();
 
 	protected:
 		Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker);

@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
+#include "piece.h"
 
 class Piece;
 
@@ -20,6 +21,7 @@ class Board : public sf::Drawable {
 	private:
 		int s;
 		int l;
+		Piece::PieceColor turn;
 		Piece* grid[8][8];
 		sf::RectangleShape* baseGrid[8][8];
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

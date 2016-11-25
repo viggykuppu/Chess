@@ -4,8 +4,7 @@
 #include "piece.h"
 #include <iostream>
 
-Board::Board(int s){
-	this->s = s;
+Board::Board(int s):s(s),turn(Piece::PieceColor::White){
 	this->l = s/8;
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
@@ -93,10 +92,15 @@ void Board::click(int x, int y){
 
 void Board::unclick(int x, int y){
 	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/l*l,y/l*l));
-	if(p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y){
+	if((p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y) && this->turn == heldPiece->getColor()){
 		if(heldPiece->canMove(p)){
 			std::cout << "moved" << std::endl;
 			heldPiece->move(p);
+			if(this->turn == Piece::PieceColor::Black){
+				this->turn = Piece::PieceColor::White;
+			} else {
+				this->turn = Piece::PieceColor::Black;
+			}
 		} else {
 			std::cout << "no move for you" << std::endl;
 		}

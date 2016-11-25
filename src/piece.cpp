@@ -82,3 +82,7 @@ void Piece::loadPieceTexture(){
 	float scaleFactor = float(this->board.getL())/2000;
 	this->pieceSprite.setScale(scaleFactor,scaleFactor);
 }
+
+Piece::PieceColor Piece::getColor(){
+	return this->color;
+}
