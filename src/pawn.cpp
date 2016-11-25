@@ -35,7 +35,7 @@ bool Pawn::canMove(sf::Vector2i p){
 	if(dx == 0){
 		return !isBlocked(p,false);
 	} else {
-		return false;
+		return isBlocked(p,false) && !isBlocked(p,true);
 	}
 
 	return false;
