@@ -37,8 +37,13 @@ void update(sf::RenderWindow& window, Board& board){
     sf::Event event;
     while (window.pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed){
             window.close();
+        } else if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left){
+            board.click(event.mouseButton.x,event.mouseButton.y);
+        } else if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left){
+            board.unclick(event.mouseButton.x,event.mouseButton.y);
+        }
     }
 
     board.update();

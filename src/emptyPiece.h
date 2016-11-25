@@ -7,7 +7,7 @@ class Board;
 
 class EmptyPiece : public Piece {
 	public:
-		EmptyPiece(Board& board);
+		EmptyPiece(Board& board,sf::Vector2i p);
 		virtual bool isEmpty();
 };
 

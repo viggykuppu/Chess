@@ -5,7 +5,7 @@
 Piece::Piece(Board& board):board(board){
 }
 
-Piece::Piece(Board& board, PieceColor color):board(board),color(color){
+Piece::Piece(Board& board, sf::Vector2i p, PieceColor color):board(board),color(color),x(p.x),y(p.y){
 }
 
 bool Piece::isEmpty(){
@@ -14,10 +14,6 @@ bool Piece::isEmpty(){
 
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(piece,states);
-}
-
-bool Piece::move(sf::Vector2i p){
-	return false;
 }
 
 bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
@@ -33,15 +29,13 @@ bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
 		currentX += dx;
 		currentY += dy;
 	}
-	return true;
-}
-
-int Piece::getParity(){
-	if(this->color == PieceColor::Black){
-		return -1;
-	} else {
-		return 1;
+	if(this->board.getPiece(sf::Vector2i(currentX,currentY)).isEmpty()){
+		return false;
 	}
+	if(canCapture && this->color != board.getPiece(sf::Vector2i(currentX,currentY)).color){
+		return false;
+	}
+	return true;
 }
 
 sf::Vector2i Piece::getPosition(){
@@ -51,6 +45,10 @@ sf::Vector2i Piece::getPosition(){
 void Piece::setPosition(sf::Vector2i p){
 	this->x = p.x;
 	this->y = p.y;
+}
+
+void Piece::move(sf::Vector2i p){
+	this->board.placePiece(*this, p);
 }
 
 bool Piece::canMove(sf::Vector2i p){

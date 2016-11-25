@@ -9,10 +9,10 @@ class Piece : public sf::Drawable {
 	public:
 		enum PieceColor { White, Black};
 		Piece(Board& board);
-		Piece(Board& board, PieceColor color);
+		Piece(Board& board, sf::Vector2i p, PieceColor color);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		virtual bool isEmpty();
-		virtual bool move(sf::Vector2i p);
+		virtual void move(sf::Vector2i p);
 		virtual bool canMove(sf::Vector2i p);
 		void setPosition(sf::Vector2i p);
 		sf::Vector2i getPosition();
@@ -23,6 +23,5 @@ class Piece : public sf::Drawable {
 		int x,y;
 		Board& board;
 		bool isBlocked(sf::Vector2i p, bool canCapture);
-		int getParity();
 };
 #endif
