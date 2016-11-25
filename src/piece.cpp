@@ -67,11 +67,11 @@ bool Piece::canMove(sf::Vector2i p){
 
 void Piece::loadPieceTexture(){
 	if(this->color == PieceColor::Black){
-		if(!this->pieceTexture.loadFromFile("img/Chess_pdt45.png")){
+		if(!this->pieceTexture.loadFromFile("img/Chess_"+pieceMarker+"dt45.png")){
 			//error loading
 		}
 	} else {
-		if(!this->pieceTexture.loadFromFile("img/Chess_plt45.png")){
+		if(!this->pieceTexture.loadFromFile("img/Chess_"+pieceMarker+"lt45.png")){
 			//error loading
 		}
 	}
