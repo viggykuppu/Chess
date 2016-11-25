@@ -1,8 +1,8 @@
 #include "pawn.h"
 #include <iostream>
 
-Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color),hasMoved(false){
-
+Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"){
+	
 }
 
 bool Pawn::isEmpty(){

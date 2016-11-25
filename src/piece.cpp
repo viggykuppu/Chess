@@ -1,11 +1,20 @@
 #include "piece.h"
 #include "board.h"
 #include <cmath>
+#include <iostream>
 
 Piece::Piece(Board& board):board(board){
 }
 
-Piece::Piece(Board& board, sf::Vector2i p, PieceColor color):board(board),color(color),x(p.x),y(p.y){
+Piece::Piece(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color,""){
+
+}
+
+Piece::Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker):pieceMarker(pieceMarker),board(board),color(color){
+	this->setPosition(p);
+	if(!isEmpty()){
+		loadPieceTexture();
+	}
 }
 
 bool Piece::isEmpty(){
@@ -13,7 +22,7 @@ bool Piece::isEmpty(){
 }
 
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(piece,states);
+	target.draw(pieceSprite,states);
 }
 
 bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
@@ -45,6 +54,7 @@ sf::Vector2i Piece::getPosition(){
 void Piece::setPosition(sf::Vector2i p){
 	this->x = p.x;
 	this->y = p.y;
+	this->pieceSprite.setPosition(p.x*200,p.y*200);
 }
 
 void Piece::move(sf::Vector2i p){
@@ -53,4 +63,19 @@ void Piece::move(sf::Vector2i p){
 
 bool Piece::canMove(sf::Vector2i p){
 	return false;
+}
+
+void Piece::loadPieceTexture(){
+	if(this->color == PieceColor::Black){
+		if(!this->pieceTexture.loadFromFile("img/Chess_pdt45.png")){
+			//error loading
+		}
+	} else {
+		if(!this->pieceTexture.loadFromFile("img/Chess_plt45.png")){
+			//error loading
+		}
+	}
+	this->pieceTexture.setSmooth(true);
+	this->pieceSprite.setTexture(pieceTexture);
+	this->pieceSprite.setScale(.1,.1);
 }

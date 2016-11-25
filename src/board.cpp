@@ -33,7 +33,7 @@ Board::~Board(){
 }
 
 Piece Board::getPiece(sf::Vector2i p){
-	return *grid[p.x][p.y];
+	return *grid[p.y][p.x];
 }
 
 void Board::initPieces(){
@@ -42,11 +42,11 @@ void Board::initPieces(){
 			if(i != 1 || i != 6){
 				this->grid[i][j] = new EmptyPiece(*this, sf::Vector2i(i,j));
 			}
-		}
+		}  
 	}
 	for(int i = 0; i < 8; i++){
-		this->grid[1][i] = new Pawn(*this, sf::Vector2i(1,i), Piece::PieceColor::Black);
-		this->grid[6][i] = new Pawn(*this, sf::Vector2i(6,i), Piece::PieceColor::White);
+		this->grid[1][i] = new Pawn(*this, sf::Vector2i(i,1), Piece::PieceColor::Black);
+		this->grid[6][i] = new Pawn(*this, sf::Vector2i(i,6), Piece::PieceColor::White);
 	}
 }
 
@@ -54,6 +54,13 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
 			target.draw(*baseGrid[i][j]);
+		}
+	}
+	for(int i = 0; i < 8; i++){
+		for(int j = 0; j < 8; j++){
+			if(!grid[i][j]->isEmpty()){
+				target.draw(*grid[i][j]);
+			}
 		}
 	}
 }
@@ -72,7 +79,7 @@ void Board::placePiece(Piece& piece,sf::Vector2i p){
 
 void Board::click(int x, int y){
 	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x,y));
-	heldPiece = this->grid[p.x][p.y];
+	heldPiece = this->grid[p.y][p.x];
 }
 
 void Board::unclick(int x, int y){

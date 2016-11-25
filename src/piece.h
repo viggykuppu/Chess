@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Board;
 
@@ -18,10 +19,15 @@ class Piece : public sf::Drawable {
 		sf::Vector2i getPosition();
 
 	protected:
+		Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker);
 		PieceColor color;
-		sf::RectangleShape piece;
+		sf::Sprite pieceSprite;
+		sf::Texture pieceTexture;
 		int x,y;
 		Board& board;
 		bool isBlocked(sf::Vector2i p, bool canCapture);
+		std::string pieceMarker;
+		void loadPieceTexture();
+
 };
 #endif
