@@ -33,7 +33,6 @@ bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
 	int currentY = y + dy;
 	for(int i = 0; i < n-1; i++){
 		if(!this->board.getPiece(sf::Vector2i(currentX,currentY))->isEmpty()){
-			std::cout << "non-empty" << std::endl;
 			return true;
 		}
 		currentX += dx;
@@ -41,7 +40,6 @@ bool Piece::isBlocked(sf::Vector2i p, bool canCapture){
 	}
 
 	if(this->board.getPiece(sf::Vector2i(currentX,currentY))->isEmpty()){
-		std::cout << currentX << ", " << currentY << std::endl;
 		return false;
 	}
 	if(canCapture && this->color != board.getPiece(sf::Vector2i(currentX,currentY))->color){

@@ -7,6 +7,7 @@ void update(sf::RenderWindow& window, Board& board);
 int main()
 {
     int s = 1600;
+    
     sf::RenderWindow window(sf::VideoMode(s, s), "Chess", sf::Style::Close);
     Board board(s);
 

@@ -127,7 +127,6 @@ void Board::unclick(int x, int y){
 	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/l*l,y/l*l));
 	if(this->turn == heldPiece->getColor()){
 		if(heldPiece->canMove(p) && (p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y)){
-			std::cout << "moved" << std::endl;
 			heldPiece->move(p);
 			if(this->turn == Piece::PieceColor::Black){
 				this->turn = Piece::PieceColor::White;
@@ -135,7 +134,6 @@ void Board::unclick(int x, int y){
 				this->turn = Piece::PieceColor::Black;
 			}
 		} else {
-			std::cout << "no move for you" << std::endl;
 			this->heldPiece->setPosition(this->heldPiece->getPosition());
 		}
 	}
