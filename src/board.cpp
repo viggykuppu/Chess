@@ -2,6 +2,7 @@
 #include "emptyPiece.h"
 #include "pawn.h"
 #include "piece.h"
+#include "rook.h"
 #include <iostream>
 
 Board::Board(int s):s(s),turn(Piece::PieceColor::White){
@@ -57,6 +58,10 @@ void Board::initPieces(){
 		this->grid[1][i] = new Pawn(*this, sf::Vector2i(i,1), Piece::PieceColor::Black);
 		this->grid[6][i] = new Pawn(*this, sf::Vector2i(i,6), Piece::PieceColor::White);
 	}
+	this->grid[0][0] = new Rook(*this, sf::Vector2i(0,0), Piece::PieceColor::Black);
+	this->grid[0][7] = new Rook(*this, sf::Vector2i(7,0), Piece::PieceColor::Black);
+	this->grid[7][0] = new Rook(*this, sf::Vector2i(0,7), Piece::PieceColor::White);
+	this->grid[7][7] = new Rook(*this, sf::Vector2i(7,7), Piece::PieceColor::White);
 }
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{

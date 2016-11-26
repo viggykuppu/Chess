@@ -5,10 +5,6 @@ Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,
 	hasMoved = false;
 }
 
-bool Pawn::isEmpty(){
-	return false;
-}
-
 void Pawn::move(sf::Vector2i p){
 	hasMoved = true;
 	Piece::move(p);

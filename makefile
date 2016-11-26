@@ -1,5 +1,5 @@
 CFLAGS = -std=c++11 -g -O2
-OBJECTS = piece.o board.o main.o emptyPiece.o pawn.o
+OBJECTS = piece.o board.o main.o emptyPiece.o pawn.o rook.o
 LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 chess.out : $(OBJECTS)
