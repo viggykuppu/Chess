@@ -59,6 +59,10 @@ void Piece::setPosition(sf::Vector2i p){
 	this->pieceSprite.setPosition(p.x*this->board.getL(),p.y*this->board.getL());
 }
 
+void Piece::setRealPosition(sf::Vector2i p){
+	this->pieceSprite.setPosition(p.x-this->board.getL()/2,p.y-this->board.getL()/2);
+}
+
 void Piece::move(sf::Vector2i p){
 	this->board.placePiece(*this, p);
 }

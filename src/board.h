@@ -15,6 +15,7 @@ class Board : public sf::Drawable {
 		void update();
 		void click(int x, int y);
 		void unclick(int x, int y);
+		void mouseMove(int x, int y);
 		int getS();
 		int getL();
 

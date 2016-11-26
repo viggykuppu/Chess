@@ -21,6 +21,7 @@ Board::Board(int s):s(s),turn(Piece::PieceColor::White){
 		}
 	}
 	this->initPieces();
+	this->heldPiece = nullptr;
 }
 
 Board::~Board(){
@@ -103,7 +104,15 @@ void Board::unclick(int x, int y){
 			}
 		} else {
 			std::cout << "no move for you" << std::endl;
+			this->heldPiece->setPosition(this->heldPiece->getPosition());
 		}
+	}
+	this->heldPiece = nullptr;
+}
+
+void Board::mouseMove(int x, int y){
+	if(this->heldPiece != nullptr && this->heldPiece->getColor() == turn){
+		this->heldPiece->setRealPosition(sf::Vector2i(x,y));
 	}
 }
 

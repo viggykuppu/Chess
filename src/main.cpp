@@ -43,6 +43,8 @@ void update(sf::RenderWindow& window, Board& board){
             board.click(event.mouseButton.x,event.mouseButton.y);
         } else if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left){
             board.unclick(event.mouseButton.x,event.mouseButton.y);
+        } else if(event.type == sf::Event::MouseMoved){
+            board.mouseMove(event.mouseMove.x,event.mouseMove.y);
         }
     }
 
