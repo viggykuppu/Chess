@@ -6,6 +6,7 @@
 #include "bishop.h"
 #include "knight.h"
 #include "king.h"
+#include "queen.h"
 #include <iostream>
 
 Board::Board(int s):s(s),turn(Piece::PieceColor::White){
@@ -51,32 +52,17 @@ Piece* Board::getPiece(sf::Vector2i p){
 
 void Board::initPieces(){
 	//Empty Pieces
-	for(int i = 0; i < 8; i++){
+	for(int i = 2; i < 6; i++){
 		for(int j = 0; j < 8; j++){
-			if(i != 1 || i != 6){
-				this->grid[i][j] = new EmptyPiece(*this, sf::Vector2i(i,j));
-			}
+			this->grid[i][j] = new EmptyPiece(*this, sf::Vector2i(i,j));
 		}  
 	}
+
 	//Pawns
 	for(int i = 0; i < 8; i++){
 		this->grid[1][i] = new Pawn(*this, sf::Vector2i(i,1), Piece::PieceColor::Black);
 		this->grid[6][i] = new Pawn(*this, sf::Vector2i(i,6), Piece::PieceColor::White);
 	}
-	delete this->grid[0][0];
-	delete this->grid[0][7];
-	delete this->grid[7][0];
-	delete this->grid[7][7];
-
-	delete this->grid[0][1];
-	delete this->grid[0][6];
-	delete this->grid[7][1];
-	delete this->grid[7][6];
-
-	delete this->grid[0][2];
-	delete this->grid[0][5];
-	delete this->grid[7][2];
-	delete this->grid[7][5];
 
 	//Rooks 
 	this->grid[0][0] = new Rook(*this, sf::Vector2i(0,0), Piece::PieceColor::Black);
@@ -95,6 +81,10 @@ void Board::initPieces(){
 	this->grid[0][5] = new Knight(*this, sf::Vector2i(5,0), Piece::PieceColor::Black);
 	this->grid[7][2] = new Knight(*this, sf::Vector2i(2,7), Piece::PieceColor::White);
 	this->grid[7][5] = new Knight(*this, sf::Vector2i(5,7), Piece::PieceColor::White);
+
+	//Queens
+	this->grid[0][3] = new Queen(*this, sf::Vector2i(3,0), Piece::PieceColor::Black);
+	this->grid[7][3] = new Queen(*this, sf::Vector2i(3,7), Piece::PieceColor::White);
 
 	//Kings
 	this->grid[0][4] = new King(*this, sf::Vector2i(4,0), Piece::PieceColor::Black);
