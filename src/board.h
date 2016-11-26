@@ -18,10 +18,14 @@ class Board : public sf::Drawable {
 		void mouseMove(int x, int y);
 		int getS();
 		int getL();
+		void removePiece(sf::Vector2i p);
+		int getTurnCount();
+		void incrementTurnCount();
 
 	private:
 		int s;
 		int l;
+		int turnCount;
 		Piece::PieceColor turn;
 		Piece* grid[8][8];
 		sf::RectangleShape* baseGrid[8][8];

@@ -10,7 +10,7 @@ Piece::Piece(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color
 
 }
 
-Piece::Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker):pieceMarker(pieceMarker),board(board),color(color){
+Piece::Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker):pieceMarker(pieceMarker),board(board),color(color),turnLastMovedOn(-1){
 	this->setPosition(p);
 	if(!isEmpty()){
 		loadPieceTexture();
@@ -65,7 +65,9 @@ void Piece::setRealPosition(sf::Vector2i p){
 }
 
 void Piece::move(sf::Vector2i p){
+	this->turnLastMovedOn = this->board.getTurnCount();
 	this->board.placePiece(*this, p);
+	this->board.incrementTurnCount();
 }
 
 bool Piece::canMove(sf::Vector2i p){
@@ -90,4 +92,12 @@ void Piece::loadPieceTexture(){
 
 Piece::PieceColor Piece::getColor(){
 	return this->color;
+}
+
+bool Piece::getJustDoubleJumped(){
+	return false;
+}
+
+int Piece::getTurnLastMovedOn(){
+	return this->turnLastMovedOn;
 }

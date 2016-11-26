@@ -1,13 +1,20 @@
 #include "pawn.h"
+#include "board.h"
 #include <iostream>
 
-Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"){
-	hasMoved = false;
+Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"),hasMoved(false),justDoubleJumped(false){
+
 }
 
 void Pawn::move(sf::Vector2i p){
-	hasMoved = true;
+	int dy = p.y - this->getPosition().y;
+	if(dy == 2){
+		justDoubleJumped = true;
+	} else if(justDoubleJumped){
+		justDoubleJumped = false;
+	}
 	Piece::move(p);
+	hasMoved = true;
 }
 
 bool Pawn::canMove(sf::Vector2i p){
@@ -31,8 +38,24 @@ bool Pawn::canMove(sf::Vector2i p){
 	if(dx == 0){
 		return !isBlocked(p,false);
 	} else {
-		return isBlocked(p,false) && !isBlocked(p,true);
+		return (isBlocked(p,false) && !isBlocked(p,true)) || canEnPassant(p);
 	}
 
+	return false;
+}
+
+bool Pawn::getJustDoubleJumped(){
+	return this->justDoubleJumped;
+}
+
+bool Pawn::canEnPassant(sf::Vector2i p){
+	int dy = p.y - this->getPosition().y;
+	int dx = p.x - this->getPosition().x;
+	sf::Vector2i checkLocation = sf::Vector2i(p.x,p.y-dy);
+	if(this->board.getPiece(checkLocation)->getJustDoubleJumped() && this->board.getTurnCount() - 1 == this->board.getPiece(checkLocation)->getTurnLastMovedOn()){
+		std::cout<< p.x << ", " << p.y << std::endl;
+		this->board.removePiece(checkLocation);
+		return true;
+	}
 	return false;
 }

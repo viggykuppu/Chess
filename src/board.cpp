@@ -9,7 +9,7 @@
 #include "queen.h"
 #include <iostream>
 
-Board::Board(int s):s(s),turn(Piece::PieceColor::White){
+Board::Board(int s):s(s),turn(Piece::PieceColor::White),turnCount(0){
 	this->l = s/8;
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
@@ -154,4 +154,17 @@ sf::Vector2i Board::convertPointToGrid(sf::Vector2i p){
 
 sf::Vector2i Board::convertGridToPoint(sf::Vector2i p){
 	return sf::Vector2i(p.x*l,p.y*l);
+}
+
+void Board::removePiece(sf::Vector2i p){
+	Piece* emptyPiece = new EmptyPiece(*this,p);
+	this->placePiece(*emptyPiece, p);
+}
+
+int Board::getTurnCount(){
+	return turnCount;
+}
+
+void Board::incrementTurnCount(){
+	turnCount = turnCount + 1;
 }

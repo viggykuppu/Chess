@@ -1,7 +1,12 @@
 #include "king.h"
 
-King::King(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color,"k"){
+King::King(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color,"k"),hasMoved(false){
 
+}
+
+void King::move(sf::Vector2i p){
+	Piece::move(p);
+	hasMoved = true;
 }
 
 bool King::canMove(sf::Vector2i p){

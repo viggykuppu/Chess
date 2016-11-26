@@ -2,8 +2,13 @@
 #include <cmath>
 #include <iostream>
 
-Rook::Rook(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color,"r"){
+Rook::Rook(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color,"r"),hasMoved(false){
 
+}
+
+void Rook::move(sf::Vector2i p){
+	Piece::move(p);
+	hasMoved = true;
 }
 
 bool Rook::canMove(sf::Vector2i p){

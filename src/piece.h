@@ -19,6 +19,8 @@ class Piece : public sf::Drawable {
 		sf::Vector2i getPosition();
 		void setRealPosition(sf::Vector2i p);
 		PieceColor getColor();
+		virtual bool getJustDoubleJumped();
+		int getTurnLastMovedOn();
 
 	protected:
 		Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker);
@@ -30,6 +32,7 @@ class Piece : public sf::Drawable {
 		bool isBlocked(sf::Vector2i p, bool canCapture);
 		std::string pieceMarker;
 		void loadPieceTexture();
+		int turnLastMovedOn;
 
 };
 #endif

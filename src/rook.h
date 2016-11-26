@@ -7,7 +7,12 @@
 class Rook : public Piece {
 	public:
 		Rook(Board& board, sf::Vector2i p, PieceColor color);
-		virtual bool canMove(sf::Vector2i p);
+		bool canMove(sf::Vector2i p);
+		void move(sf::Vector2i p);
+
+	private:
+		bool hasMoved;
+
 
 };
 
