@@ -5,6 +5,7 @@
 #include "rook.h"
 #include "bishop.h"
 #include "knight.h"
+#include "king.h"
 #include <iostream>
 
 Board::Board(int s):s(s),turn(Piece::PieceColor::White){
@@ -94,6 +95,10 @@ void Board::initPieces(){
 	this->grid[0][5] = new Knight(*this, sf::Vector2i(5,0), Piece::PieceColor::Black);
 	this->grid[7][2] = new Knight(*this, sf::Vector2i(2,7), Piece::PieceColor::White);
 	this->grid[7][5] = new Knight(*this, sf::Vector2i(5,7), Piece::PieceColor::White);
+
+	//Kings
+	this->grid[0][4] = new King(*this, sf::Vector2i(4,0), Piece::PieceColor::Black);
+	this->grid[7][4] = new King(*this, sf::Vector2i(4,7), Piece::PieceColor::White);
 }
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -130,8 +135,8 @@ void Board::click(int x, int y){
 
 void Board::unclick(int x, int y){
 	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/l*l,y/l*l));
-	if((p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y) && this->turn == heldPiece->getColor()){
-		if(heldPiece->canMove(p)){
+	if(this->turn == heldPiece->getColor()){
+		if(heldPiece->canMove(p) && (p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y)){
 			std::cout << "moved" << std::endl;
 			heldPiece->move(p);
 			if(this->turn == Piece::PieceColor::Black){
