@@ -21,6 +21,7 @@ class Board : public sf::Drawable {
 		void removePiece(sf::Vector2i p);
 		int getTurnCount();
 		void incrementTurnCount();
+		bool inCheck();
 
 	private:
 		int s;
@@ -29,10 +30,14 @@ class Board : public sf::Drawable {
 		Piece::PieceColor turn;
 		Piece* grid[8][8];
 		sf::RectangleShape* baseGrid[8][8];
+		Piece* heldPiece;
+		Piece* whiteKing;
+		Piece* blackKing;
+		bool testMoveForCheck(Piece& piece, sf::Vector2i p);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void initPieces();
 		sf::Vector2i convertPointToGrid(sf::Vector2i p);
 		sf::Vector2i convertGridToPoint(sf::Vector2i p);
-		Piece* heldPiece;
+
 };
 #endif

@@ -17,6 +17,5 @@ bool Rook::canMove(sf::Vector2i p){
 	if(dx*dy == 0){
 		return !isBlocked(p,true);
 	}
-	std::cout << "prod not 0" << std::endl;
 	return false;
 }

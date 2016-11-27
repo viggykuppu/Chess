@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "board.h"
+#include <iostream>
 
 void draw(sf::RenderWindow& window, Board& board);
 void update(sf::RenderWindow& window, Board& board);
@@ -48,4 +49,5 @@ void update(sf::RenderWindow& window, Board& board){
             board.mouseMove(event.mouseMove.x,event.mouseMove.y);
         }
     }
+    board.update();
 }

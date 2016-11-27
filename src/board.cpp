@@ -89,6 +89,8 @@ void Board::initPieces(){
 	//Kings
 	this->grid[0][4] = new King(*this, sf::Vector2i(4,0), Piece::PieceColor::Black);
 	this->grid[7][4] = new King(*this, sf::Vector2i(4,7), Piece::PieceColor::White);
+	this->blackKing = this->grid[0][4];
+	this->whiteKing = this->grid[7][4];
 }
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -116,6 +118,7 @@ void Board::placePiece(Piece& piece,sf::Vector2i p){
 	piece.setPosition(p);
 	grid[p.y][p.x] = &piece;
 	grid[q.y][q.x] = new EmptyPiece(*this,q);
+
 }
 
 void Board::click(int x, int y){
@@ -126,7 +129,7 @@ void Board::click(int x, int y){
 void Board::unclick(int x, int y){
 	sf::Vector2i p = convertPointToGrid(sf::Vector2i(x/l*l,y/l*l));
 	if(this->turn == heldPiece->getColor()){
-		if(heldPiece->canMove(p) && (p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y)){
+		if(heldPiece->canMove(p) && (p.x != heldPiece->getPosition().x || p.y != heldPiece->getPosition().y) && !testMoveForCheck(*heldPiece,p)){
 			heldPiece->move(p);
 			if(this->turn == Piece::PieceColor::Black){
 				this->turn = Piece::PieceColor::White;
@@ -165,4 +168,45 @@ int Board::getTurnCount(){
 
 void Board::incrementTurnCount(){
 	turnCount = turnCount + 1;
+}
+
+bool Board::inCheck(){
+	sf::Vector2i kingPosition;
+	if(turn == Piece::PieceColor::White){
+		kingPosition = whiteKing->getPosition();
+	} else {
+		kingPosition = blackKing->getPosition();
+	}
+	for(int i = 0; i < 8; i++){
+		for(int j = 0; j < 8; j++){
+			Piece* piece = this->grid[i][j];
+			if(!piece->isEmpty() && piece->getColor() != this->turn){
+				if(piece->canMove(kingPosition)){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+bool Board::testMoveForCheck(Piece& piece, sf::Vector2i p){
+	Piece* end = grid[p.y][p.x];
+	sf::Vector2i q = piece.getPosition();
+
+	piece.setPosition(p);
+
+	grid[p.y][p.x] = &piece;
+	grid[q.y][q.x] = new EmptyPiece(*this,q);
+
+	bool retVal = inCheck();
+
+	delete grid[q.y][q.x];
+
+	piece.setPosition(q);
+
+	grid[q.y][q.x] = &piece;
+	grid[p.y][p.x] = end;
+	
+	return retVal;
 }
