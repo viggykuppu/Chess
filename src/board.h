@@ -22,6 +22,7 @@ class Board : public sf::Drawable {
 		int getTurnCount();
 		void incrementTurnCount();
 		bool inCheck();
+		bool canCastle(Piece* piece, sf::Vector2i p);
 
 	private:
 		int s;

@@ -7,6 +7,7 @@
 class Board;
 
 class Piece : public sf::Drawable {
+	friend class Board;
 	public:
 		enum PieceColor { White, Black};
 		Piece(Board& board);
@@ -21,7 +22,7 @@ class Piece : public sf::Drawable {
 		PieceColor getColor();
 		virtual bool getJustDoubleJumped();
 		int getTurnLastMovedOn();
-		std::string pieceMarker;
+		
 
 	protected:
 		Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker);
@@ -31,9 +32,10 @@ class Piece : public sf::Drawable {
 		int x,y;
 		Board& board;
 		bool isBlocked(sf::Vector2i p, bool canCapture);
-		
+		std::string pieceMarker;
 		void loadPieceTexture();
 		int turnLastMovedOn;
+		bool hasMoved;
 
 };
 #endif

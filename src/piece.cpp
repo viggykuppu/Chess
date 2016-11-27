@@ -10,7 +10,7 @@ Piece::Piece(Board& board, sf::Vector2i p, PieceColor color):Piece(board,p,color
 
 }
 
-Piece::Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker):pieceMarker(pieceMarker),board(board),color(color),turnLastMovedOn(-1){
+Piece::Piece(Board& board, sf::Vector2i p, PieceColor color, std::string pieceMarker):pieceMarker(pieceMarker),board(board),color(color),turnLastMovedOn(-1),hasMoved(false){
 	this->setPosition(p);
 	if(!isEmpty()){
 		loadPieceTexture();
@@ -66,6 +66,7 @@ void Piece::move(sf::Vector2i p){
 	this->turnLastMovedOn = this->board.getTurnCount();
 	this->board.placePiece(*this, p);
 	this->board.incrementTurnCount();
+	this->hasMoved = false;
 }
 
 bool Piece::canMove(sf::Vector2i p){

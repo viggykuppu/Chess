@@ -12,7 +12,6 @@ class Pawn : public Piece {
 		bool getJustDoubleJumped();
 
 	private:
-		bool hasMoved;
 		bool justDoubleJumped;
 		bool canEnPassant(sf::Vector2i p);
 

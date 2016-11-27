@@ -180,7 +180,7 @@ bool Board::inCheck(){
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
 			Piece* piece = this->grid[i][j];
-			if(!piece->isEmpty() && piece->getColor() != this->turn){
+			if(!piece->isEmpty() && piece->getColor() != this->turn && piece->pieceMarker != "k"){
 				if(piece->canMove(kingPosition)){
 					return true;
 				}
@@ -209,4 +209,27 @@ bool Board::testMoveForCheck(Piece& piece, sf::Vector2i p){
 	grid[p.y][p.x] = end;
 	
 	return retVal;
+}
+
+bool Board::canCastle(Piece* piece, sf::Vector2i p){
+	int dx = p.x - piece->getPosition().x;
+	int dy = std::abs(p.y - piece->getPosition().y);
+	Piece* rook;
+	sf::Vector2i finalRookPosition;
+	if(dy == 0 && std::abs(dx) == 2){
+		if(dx < 0){
+			rook = this->grid[p.y][0];
+			finalRookPosition = sf::Vector2i(3,p.y);
+		} else {
+			rook = this->grid[p.y][7];
+			finalRookPosition = sf::Vector2i(5,p.y);
+		}
+		int ix = dx/std::abs(dx);
+		if(!rook->hasMoved && !rook->isBlocked(finalRookPosition,false) && !this->testMoveForCheck(*piece, sf::Vector2i(piece->getPosition().x+ix,p.y)) && !this->testMoveForCheck(*piece, sf::Vector2i(piece->getPosition().x+2*ix,p.y))){
+			rook->move(finalRookPosition);
+			this->turnCount = this->turnCount - 1;
+			return true;
+		}
+	}
+	return false;
 }

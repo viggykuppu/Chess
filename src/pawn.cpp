@@ -2,7 +2,7 @@
 #include "board.h"
 #include <iostream>
 
-Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"),hasMoved(false),justDoubleJumped(false){
+Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,"p"),justDoubleJumped(false){
 
 }
 
@@ -14,7 +14,6 @@ void Pawn::move(sf::Vector2i p){
 		justDoubleJumped = false;
 	}
 	Piece::move(p);
-	hasMoved = true;
 }
 
 bool Pawn::canMove(sf::Vector2i p){

@@ -8,10 +8,6 @@ class King : public Piece{
 	public:
 		King(Board& board, sf::Vector2i p, PieceColor color);
 		bool canMove(sf::Vector2i p);
-		void move(sf::Vector2i p);
-
-	private:
-		bool hasMoved;
 };
 
 #endif
