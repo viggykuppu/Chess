@@ -7,7 +7,7 @@ Pawn::Pawn(Board& board,  sf::Vector2i p, PieceColor color):Piece(board,p,color,
 }
 
 void Pawn::move(sf::Vector2i p){
-	int dy = p.y - this->getPosition().y;
+	int dy = std::abs(p.y - this->getPosition().y);
 	if(dy == 2){
 		justDoubleJumped = true;
 	} else if(justDoubleJumped){
@@ -53,7 +53,6 @@ bool Pawn::canEnPassant(sf::Vector2i p){
 	int dx = p.x - this->getPosition().x;
 	sf::Vector2i checkLocation = sf::Vector2i(p.x,p.y-dy);
 	if(this->board.getPiece(checkLocation)->getJustDoubleJumped() && this->board.getTurnCount() - 1 == this->board.getPiece(checkLocation)->getTurnLastMovedOn()){
-		std::cout<< p.x << ", " << p.y << std::endl;
 		this->board.removePiece(checkLocation);
 		return true;
 	}

@@ -7,7 +7,7 @@ void update(sf::RenderWindow& window, Board& board);
 int main()
 {
     int s = 1600;
-    
+
     sf::RenderWindow window(sf::VideoMode(s, s), "Chess", sf::Style::Close);
     Board board(s);
 
@@ -48,6 +48,4 @@ void update(sf::RenderWindow& window, Board& board){
             board.mouseMove(event.mouseMove.x,event.mouseMove.y);
         }
     }
-
-    board.update();
 }
