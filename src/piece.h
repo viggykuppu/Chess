@@ -8,6 +8,8 @@ class Board;
 
 class Piece : public sf::Drawable {
 	friend class Board;
+	friend class King;
+	
 	public:
 		enum PieceColor { White, Black};
 		Piece(Board& board);

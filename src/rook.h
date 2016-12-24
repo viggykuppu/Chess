@@ -5,6 +5,7 @@
 #include "piece.h"
 
 class Rook : public Piece {
+
 	public:
 		Rook(Board& board, sf::Vector2i p, PieceColor color);
 		bool canMove(sf::Vector2i p);
