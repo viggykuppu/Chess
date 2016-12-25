@@ -49,5 +49,4 @@ void update(sf::RenderWindow& window, Board& board){
             board.mouseMove(event.mouseMove.x,event.mouseMove.y);
         }
     }
-    board.update();
 }

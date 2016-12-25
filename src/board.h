@@ -23,7 +23,7 @@ class Board : public sf::Drawable {
 		int getTurnCount();
 		void incrementTurnCount();
 		void decrementTurnCount();
-		bool inCheck();
+		bool inCheck(Piece::PieceColor kingColor);
 
 	private:
 		int s;

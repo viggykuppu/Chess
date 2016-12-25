@@ -170,9 +170,9 @@ void Board::decrementTurnCount(){
 	turnCount = turnCount - 1;
 }
 
-bool Board::inCheck(){
+bool Board::inCheck(Piece::PieceColor kingColor){
 	sf::Vector2i kingPosition;
-	if(turn == Piece::PieceColor::White){
+	if(kingColor == Piece::PieceColor::White){
 		kingPosition = whiteKing->getPosition();
 	} else {
 		kingPosition = blackKing->getPosition();
@@ -199,7 +199,7 @@ bool Board::testMoveForCheck(Piece& piece, sf::Vector2i p){
 	grid[p.y][p.x] = &piece;
 	grid[q.y][q.x] = new EmptyPiece(*this,q);
 
-	bool retVal = inCheck();
+	bool retVal = inCheck(turn);
 
 	delete grid[q.y][q.x];
 

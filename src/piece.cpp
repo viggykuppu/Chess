@@ -66,7 +66,7 @@ void Piece::move(sf::Vector2i p){
 	this->turnLastMovedOn = this->board.getTurnCount();
 	this->board.placePiece(*this, p);
 	this->board.incrementTurnCount();
-	this->hasMoved = false;
+	this->hasMoved = true;
 }
 
 bool Piece::canMove(sf::Vector2i p){
