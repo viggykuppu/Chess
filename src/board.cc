@@ -27,6 +27,7 @@ Board::Board(int s):s(s),turn(Piece::PieceColor::White),turnCount(0){
 	}
 	this->initPieces();
 	this->heldPiece = nullptr;
+	this->heldPieceMovesEvaluated = false;
 }
 
 Board::~Board(){
@@ -96,6 +97,26 @@ void Board::initPieces(){
 	this->whiteKing = this->grid[7][4];
 }
 
+void Board::highlightSquares(std::vector<sf::Vector2i> squares){
+	for(const sf::Vector2i& p : this->currentPossibleMoves){
+		if( (p.x + p.y) % 2 == 0){
+			this->baseGrid[p.x][p.y]->setFillColor(sf::Color(255, 255, 20));
+		} else {
+			this->baseGrid[p.x][p.y]->setFillColor(sf::Color(180, 180, 20));
+		}
+	}
+}
+
+void Board::resetSquareColors(std::vector<sf::Vector2i> squares){
+	for(const sf::Vector2i& p : this->currentPossibleMoves){
+		if( (p.x + p.y) % 2 == 0){
+			this->baseGrid[p.x][p.y]->setFillColor(sf::Color::White);
+		} else {
+			this->baseGrid[p.x][p.y]->setFillColor(sf::Color(180,180,180));
+		}
+	}
+}
+
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
@@ -140,11 +161,20 @@ void Board::unclick(int x, int y){
 		}
 	}
 	this->heldPiece = nullptr;
+	this->resetSquareColors(this->currentPossibleMoves);
+	this->currentPossibleMoves.clear();
+	this->heldPieceMovesEvaluated = false;
 }
 
 void Board::mouseMove(int x, int y){
 	if(this->heldPiece != nullptr && this->heldPiece->getColor() == turn){
 		this->heldPiece->setRealPosition(sf::Vector2i(x,y));
+		if(!this->heldPieceMovesEvaluated){
+			this->currentPossibleMoves = this->heldPiece->getPossibleMoves();
+			std::cout << this->currentPossibleMoves.size() << std::endl;
+			this->highlightSquares(this->currentPossibleMoves);
+			this->heldPieceMovesEvaluated = true;
+		}
 	}
 }
 

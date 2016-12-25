@@ -52,16 +52,20 @@ std::vector<sf::Vector2i> Pawn::getPossibleMoves(){
 		parity = -1;
 	}
 	sf::Vector2i checkPosition = sf::Vector2i(this->getPosition().x,this->getPosition().y+parity);
-	if(board.getPiece(checkPosition)->isEmpty()){
+	if(!board.testMoveForCheck(*this,checkPosition) && board.getPiece(checkPosition)->isEmpty()){
 		possibleMoves.push_back(checkPosition);
-		checkPosition = checkPosition + sf::Vector2i(0,1);
-		if(board.getPiece(checkPosition)->isEmpty()){
+		checkPosition = checkPosition + sf::Vector2i(0,parity);
+		if(!board.testMoveForCheck(*this,checkPosition) && !this->hasMoved && board.getPiece(checkPosition)->isEmpty()){
 			possibleMoves.push_back(checkPosition);
 		}
 	}
 	checkPosition = sf::Vector2i(this->getPosition().x+1,this->getPosition().y+parity);
-	if(!board.getPiece(checkPosition)->isEmpty() && board.getPiece(checkPosition)->getColor() != this->getColor()){
+	if(!board.testMoveForCheck(*this,checkPosition) && ((!board.getPiece(checkPosition)->isEmpty() && board.getPiece(checkPosition)->getColor() != this->getColor()) || canEnPassant(checkPosition))){
 		possibleMoves.push_back(checkPosition);
+		checkPosition = checkPosition + sf::Vector2i(-2,0);
+		if(!board.testMoveForCheck(*this,checkPosition) && ((!board.getPiece(checkPosition)->isEmpty() && board.getPiece(checkPosition)->getColor() != this->getColor()) || canEnPassant(checkPosition))){
+			possibleMoves.push_back(checkPosition);
+		}
 	}
 	return possibleMoves;
 }
