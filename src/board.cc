@@ -36,6 +36,9 @@ Board::~Board(){
 			delete this->grid[i][j];
 		}
 	}
+	this->whiteKing = nullptr;
+	this->blackKing = nullptr;
+	this->heldPiece = nullptr;
 }
 
 int Board::getS(){
@@ -172,10 +175,13 @@ void Board::decrementTurnCount(){
 
 bool Board::inCheck(Piece::PieceColor kingColor){
 	sf::Vector2i kingPosition;
+	Piece::PieceColor enemyColor;
 	if(kingColor == Piece::PieceColor::White){
 		kingPosition = whiteKing->getPosition();
+		enemyColor = Piece::PieceColor::Black;
 	} else {
 		kingPosition = blackKing->getPosition();
+		enemyColor = Piece::PieceColor::White;
 	}
 	for(int i = 0; i < 8; i++){
 		for(int j = 0; j < 8; j++){
@@ -186,6 +192,44 @@ bool Board::inCheck(Piece::PieceColor kingColor){
 				}
 			}
 		}
+	}
+	//Check for Knights
+	// std::vector<int> xOffsets = {1,-1,2,-2};
+	// std::vector<int> yOffsets = {2,-2,1,-1};
+	// for(int i = 0; i < 4; i++){
+	// 	for(int j = 0; j < 2; j++){
+	// 		int offset = i > 1 ? 2 : 0;
+	// 		sf::Vector2i currentPosition = sf::Vector2i(kingPosition.x+xOffsets[i],kingPosition.y+yOffsets[j+offset]);
+	// 		if(isValidSpace(currentPosition) && checkSpaceForPieces(currentPosition,{"n"},enemyColor)){
+	// 			return true;
+	// 		}
+	// 	}
+	// }
+	// //Check upwards
+	// sf::Vector2i currentPosition = sf::Vector2i(kingPosition.x,kingPosition.y);
+	// for(int i = 0; i < 8; i++){
+	// 	sf::Vector2i currentPosition = sf::Vector2i(currentPosition.x,currentPosition.y+1);
+	// 	if(isValidSpace(currentPosition)){
+	// 		Piece* currentPiece = this->getPiece(currentPosition);
+	// 		if(currentPiece->getColor() == kingColor){
+	// 			break;
+	// 		}
+	// 		if(currentPiece->isEmpty()){
+	// 			continue;
+	// 		}
+	// 		if(checkSpaceForPieces(currentPosition, {"q","r"}, enemyColor)){
+	// 			return true;
+	// 		}
+	// 	} else {
+	// 		break;
+	// 	}
+	// }
+	return false;
+}
+
+bool Board::checkSpaceForPieces(sf::Vector2i p, std::vector<std::string> pieces, Piece::PieceColor color){
+	for(std::vector<std::string>::iterator it = pieces.begin(); it != pieces.end(); ++it) {
+	    return *it == this->getPiece(p)->pieceMarker && this->getPiece(p)->getColor() == color;
 	}
 	return false;
 }

@@ -100,3 +100,11 @@ bool Piece::getJustDoubleJumped(){
 int Piece::getTurnLastMovedOn(){
 	return this->turnLastMovedOn;
 }
+
+std::vector<sf::Vector2i> Piece::getPossibleMoves(){
+	return std::vector<sf::Vector2i>();
+}
+
+bool Piece::isValidSpace(sf::Vector2i p){
+	return !(p.x < 0 || p.x > 7 || p.y < 0 || p.y > 7);
+}

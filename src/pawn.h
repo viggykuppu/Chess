@@ -9,6 +9,7 @@ class Pawn : public Piece {
 		Pawn(Board& board, sf::Vector2i p, PieceColor color);
 		virtual void move(sf::Vector2i p);
 		virtual bool canMove(sf::Vector2i p);
+		std::vector<sf::Vector2i> getPossibleMoves();
 		bool getJustDoubleJumped();
 
 	private:

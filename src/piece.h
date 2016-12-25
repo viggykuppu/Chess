@@ -15,15 +15,17 @@ class Piece : public sf::Drawable {
 		Piece(Board& board);
 		Piece(Board& board, sf::Vector2i p, PieceColor color);
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-		virtual bool isEmpty();
 		virtual void move(sf::Vector2i p);
+		virtual bool isEmpty();
 		virtual bool canMove(sf::Vector2i p);
+		virtual bool getJustDoubleJumped();
+		virtual std::vector<sf::Vector2i> getPossibleMoves();
 		void setPosition(sf::Vector2i p);
 		sf::Vector2i getPosition();
 		void setRealPosition(sf::Vector2i p);
 		PieceColor getColor();
-		virtual bool getJustDoubleJumped();
 		int getTurnLastMovedOn();
+		bool isValidSpace(sf::Vector2i p);
 		
 
 	protected:

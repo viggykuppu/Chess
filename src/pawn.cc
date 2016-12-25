@@ -43,6 +43,29 @@ bool Pawn::canMove(sf::Vector2i p){
 	return false;
 }
 
+std::vector<sf::Vector2i> Pawn::getPossibleMoves(){
+	int parity;
+	std::vector<sf::Vector2i> possibleMoves;
+	if(this->getColor() == PieceColor::Black){
+		parity = 1;
+	} else {
+		parity = -1;
+	}
+	sf::Vector2i checkPosition = sf::Vector2i(this->getPosition().x,this->getPosition().y+parity);
+	if(board.getPiece(checkPosition)->isEmpty()){
+		possibleMoves.push_back(checkPosition);
+		checkPosition = checkPosition + sf::Vector2i(0,1);
+		if(board.getPiece(checkPosition)->isEmpty()){
+			possibleMoves.push_back(checkPosition);
+		}
+	}
+	checkPosition = sf::Vector2i(this->getPosition().x+1,this->getPosition().y+parity);
+	if(!board.getPiece(checkPosition)->isEmpty() && board.getPiece(checkPosition)->getColor() != this->getColor()){
+		possibleMoves.push_back(checkPosition);
+	}
+	return possibleMoves;
+}
+
 bool Pawn::getJustDoubleJumped(){
 	return this->justDoubleJumped;
 }

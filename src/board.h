@@ -24,6 +24,7 @@ class Board : public sf::Drawable {
 		void incrementTurnCount();
 		void decrementTurnCount();
 		bool inCheck(Piece::PieceColor kingColor);
+		bool isCheckMate(Piece::PieceColor kingColor);
 		bool isValidSpace(sf::Vector2i p);
 
 	private:
@@ -36,6 +37,7 @@ class Board : public sf::Drawable {
 		Piece* heldPiece;
 		Piece* whiteKing;
 		Piece* blackKing;
+		bool checkSpaceForPieces(sf::Vector2i p, std::vector<std::string> pieces, Piece::PieceColor color);
 		bool testMoveForCheck(Piece& piece, sf::Vector2i p);
 		void initPieces();
 		sf::Vector2i convertPointToGrid(sf::Vector2i p);
