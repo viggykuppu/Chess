@@ -24,6 +24,7 @@ class Board : public sf::Drawable {
 		void incrementTurnCount();
 		void decrementTurnCount();
 		bool inCheck(Piece::PieceColor kingColor);
+		bool isValidSpace(sf::Vector2i p);
 
 	private:
 		int s;

@@ -5,11 +5,11 @@ LINKER_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 chess.out : $(OBJECTS)
 	$(CXX) $(CFLAGS) $(OBJECTS) -o $@ $(LINKER_FLAGS)
 
-board.o : src/board.cpp src/board.h
-	$(CXX) $(CFLAGS) -c src/board.cpp
+board.o : src/board.cc src/board.h
+	$(CXX) $(CFLAGS) -c src/board.cc
 
-main.o : src/main.cpp
-	$(CXX) $(CFLAGS) -c src/main.cpp
+main.o : src/main.cc
+	$(CXX) $(CFLAGS) -c src/main.cc
 
-%.o : src/%.cpp src/%.h src/piece.cpp src/piece.h
+%.o : src/%.cc src/%.h src/piece.cc src/piece.h
 	$(CXX) $(CFLAGS) -c $<

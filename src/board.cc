@@ -190,6 +190,10 @@ bool Board::inCheck(Piece::PieceColor kingColor){
 	return false;
 }
 
+bool Board::isValidSpace(sf::Vector2i p){
+	return !(p.x < 0 || p.x > 7 || p.y < 0 || p.y > 7);
+}
+
 bool Board::testMoveForCheck(Piece& piece, sf::Vector2i p){
 	Piece* end = grid[p.y][p.x];
 	sf::Vector2i q = piece.getPosition();
